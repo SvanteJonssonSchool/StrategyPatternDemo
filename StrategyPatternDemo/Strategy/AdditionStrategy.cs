@@ -6,10 +6,9 @@ namespace StrategyPatternDemo.Strategy
 {
     class AdditionStrategy : ICalculationStrategy
     {
-        public void Calculate(double numberOne, double numberTwo)
+        public double Calculate(double firstNum, double secondNum)
         {
-            var result = numberOne + numberTwo;
-            Console.WriteLine("The result is: " + result);
+            return (firstNum + secondNum);
         }
     }
 }

@@ -8,16 +8,14 @@ namespace StrategyPatternDemo
     {
         private ICalculationStrategy _strategy;
 
-        // Constructor
-
         public Calculation(ICalculationStrategy strategy)
         {
             _strategy = strategy;
         }
 
-        public void CalculationInterface(double num1, double num2)
+        public double CalculationInterface(double firstNum, double secondNum)
         {
-            _strategy.Calculate(num1, num2);
+            return _strategy.Calculate(firstNum, secondNum);
         }
     }
 }

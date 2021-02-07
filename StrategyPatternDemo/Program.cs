@@ -1,6 +1,7 @@
 ﻿using StrategyPatternDemo.Strategy;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace StrategyPatternDemo
 {
@@ -30,22 +31,46 @@ namespace StrategyPatternDemo
                 }
 
                 //User inputs numbers that is to be calculated
+                FaultyInput:
+                string numberInputOne;
+                string numberInputTwo;
                 Console.WriteLine("Input the first number");
-                double firstNum = Convert.ToDouble(Console.ReadLine());
+                numberInputOne = Console.ReadLine();
                 Console.WriteLine("Input the second number");
-                double secondNum = Convert.ToDouble(Console.ReadLine());
+                numberInputTwo = Console.ReadLine();
+                if (!Regex.IsMatch(numberInputOne, "^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$") || !Regex.IsMatch(numberInputTwo, "^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"))
+                {
+                    Console.WriteLine($"One or both of you inputs were not valid please try again\nInput one: {numberInputOne}\nInput two: {numberInputTwo}");
+                    goto FaultyInput;
+                }
+                double firstNum = Convert.ToDouble(numberInputOne);
+                Console.WriteLine("Input the second number");
+                double secondNum = Convert.ToDouble(numberInputTwo);
+
+                ICalculationStrategy mathStrategy = new DefaultStrategy();
 
                 switch (typeOfMath)
                 {
                     case "+":
+                        mathStrategy = new AdditionStrategy();
                         break;
                     case "-":
+                        mathStrategy = new SubtractionStrategy();
                         break;
                     case "/":
+                        mathStrategy = new DivisionStrategy();
                         break;
                     case "*":
+                        mathStrategy = new MultiplicationStrategy();
+                        break;
+                    default:
                         break;
                 }
+
+                //Inputs are calculated
+                var calculate = new Calculation(mathStrategy);
+
+                Console.WriteLine($"The result is: {calculate.CalculationInterface(firstNum, secondNum)}");
             }
         }
     }
