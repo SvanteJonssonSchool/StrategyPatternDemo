@@ -1,5 +1,6 @@
 ﻿using StrategyPatternDemo.Strategy;
 using System;
+using System.Collections.Generic;
 
 namespace StrategyPatternDemo
 {
@@ -7,53 +8,43 @@ namespace StrategyPatternDemo
     {
         static void Main(string[] args)
         {
+            List<string> mathOperatorList = new List<string>()
+            {
+                "+", "-", "/", "*"
+            };
             while (true)
             {
-                Console.WriteLine("What operation would you like to perform? ('+', '-', '*', '/')");
-                var operation = Console.ReadLine();
-                double numberOne;
-                double numberTwo;
-                ICalculationStrategy strat;
-
-                Console.WriteLine("Enter the first number:");
-                numberOne = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Enter the second number:");
-                numberTwo = Convert.ToDouble(Console.ReadLine());
-                bool reset = false;
-
-                switch (operation)
+                //Output of all available math types the program can run
+                Console.WriteLine("What kind of math would you like to do?");
+                foreach(string mathOperator in mathOperatorList)
                 {
-                    case "+":
-                        strat = new AdditionStrategy();
-                        break;
-                    case "-":
-                        strat = new SubtractionStrategy();
-                        break;
-                    case "*":
-                        strat = new MultiplicationStrategy();
-                        break;
-                    case "/":
-                        strat = new DivisionStrategy();
-                        break;
-                    default:
-                        Console.WriteLine("Please select a valid operation");
-                        reset = true;
-                        strat = new AdditionStrategy();
-                        break;
+                    Console.Write($"\"{mathOperator}\" ");
                 }
 
-                if (reset)
+                //User inputs type of math that is to be used, if its not valid, a reset will be done
+                var typeOfMath = Console.ReadLine().ToString();
+                if (!mathOperatorList.Contains(typeOfMath))
                 {
+                    Console.WriteLine("\nNot a valid input, please try again!\n");
                     continue;
                 }
 
-                var calc = new Calculation(strat);
-                calc.CalculationInterface(numberOne, numberTwo);
+                //User inputs numbers that is to be calculated
+                Console.WriteLine("Input the first number");
+                double firstNum = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Input the second number");
+                double secondNum = Convert.ToDouble(Console.ReadLine());
 
-                Console.WriteLine("Do you wish to continue? 'y'/'n'");
-                if(Console.ReadLine().ToLower() != "y")
+                switch (typeOfMath)
                 {
-                    break;
+                    case "+":
+                        break;
+                    case "-":
+                        break;
+                    case "/":
+                        break;
+                    case "*":
+                        break;
                 }
             }
         }
