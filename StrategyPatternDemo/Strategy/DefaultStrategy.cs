@@ -4,11 +4,11 @@ using System.Text;
 
 namespace StrategyPatternDemo.Strategy
 {
-    class MultiplicationStrategy : ICalculationStrategy
+    class DefaultStrategy : ICalculationStrategy
     {
         public double Calculate(double firstNum, double secondNum)
         {
-            return (firstNum * secondNum);
+            throw new NotImplementedException();
         }
     }
 }

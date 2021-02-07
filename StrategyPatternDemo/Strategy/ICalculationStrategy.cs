@@ -6,6 +6,6 @@ namespace StrategyPatternDemo
 {
     interface ICalculationStrategy
     {
-        void Calculate(double numberOne, double numberTwo);
+        double Calculate(double firstNum, double secondNum);
     }
 }
